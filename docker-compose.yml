@@ -1,0 +1,20 @@
+
+services:
+  pocketbase:
+    build:
+      context: pocketbase
+    volumes:
+      - ./pocketbase/pb_data:/app/data/pb_data
+      - ./pocketbase/pb_migrations:/app/data/pb_migrations
+    ports:
+      - "8090:8090"
+  vite:
+    build:
+      context: frontend
+      args:
+        POCKETBASE_URL: http://localhost:8090
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - "5173:5173"
+    
